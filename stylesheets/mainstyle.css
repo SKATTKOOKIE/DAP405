@@ -7,9 +7,11 @@ body
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     margin: 0;
+    padding-top: 60px;
 }
 
 /* ============================================================================================= */
@@ -65,5 +67,104 @@ body
 }
 
 /* End of login styles */
+
+/* ============================================================================================= */
+
+/* ============================================================================================= */
+
+/* Start of employee-data-general styles */
+
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 1500px;
+    max-height: 500px; /* Adjust this value as needed */
+    overflow-y: auto;
+}
+
+table, th, td 
+{
+    border: 1px solid var(--secondary-colour);
+}
+
+th, td 
+{
+    padding: 10px;
+    text-align: left;
+}
+
+th 
+{
+    background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
+}
+
+tr:nth-child(even) 
+{
+    background-color: var(--tertiary-colour);
+    color: var(--light-text-colour);
+}
+
+tr:nth-child(odd) 
+{
+    background-color: var(--accent-colour);
+
+}
+
+h1 
+{
+    color: var(--primary-colour);
+    text-align: center;
+}
+
+@media screen and (max-width: 900px) 
+{
+    table
+    {
+       padding: 5000px;
+    }
+}
+
+
+/* End of employee-data-general styles */
+
+/* ============================================================================================= */
+
+/* ============================================================================================= */
+
+/* Start of payslip styles */
+
+.employee-container 
+{
+    border: 1px solid var(--light-text-colour);
+    padding: 20px;
+    margin: 10px;
+    width: 80%;
+    max-width: 1500px;
+    background-color: var(--accent-colour);
+    color: var(--dark-text-colour);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.name-role 
+{
+    flex: 1;
+}
+
+.other-info 
+{
+    flex: 2;
+    padding-left: 20px;
+}
+
+
+/* End of payslip styles */
 
 /* ============================================================================================= */
