@@ -1,0 +1,69 @@
+@import url(colours.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body 
+{
+    background-color: var(--secondary-colour);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ============================================================================================= */
+
+/* Start of login styles */
+
+.login-container 
+{
+    background-color: var(--tertiary-colour);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-container h2 
+{
+    color: var(--light-text-colour);
+}
+
+.login-form 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group 
+{
+    margin: 10px 0;
+}
+
+.input-group label, p
+{
+    color: var(--light-text-colour);
+}
+
+.input-group input 
+{
+    padding: 8px;
+    border: 1px solid var(--accent-colour);
+    border-radius: 4px;
+}
+
+.input-group input[type="submit"] 
+{
+    background-color: var(--accent-colour);
+    color: var(--light-text-colour);
+    cursor: pointer;
+}
+
+.error-message
+{
+    color: var(--error-colour);
+}
+
+/* End of login styles */
+
+/* ============================================================================================= */
