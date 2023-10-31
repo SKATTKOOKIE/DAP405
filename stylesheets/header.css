@@ -31,7 +31,6 @@ header
 {
     display: flex;
     align-items: center;
-    
 }
 
 .nav-list 
@@ -78,11 +77,13 @@ header
 /* Media query to show burger menu for screens below 900px */
 @media screen and (max-width: 900px) 
 {
-    .nav-list {
+    .nav-list 
+    {
         display: none; /* Hide the regular nav list */
     }
 
-    .burger-menu {
+    .burger-menu 
+    {
         display: flex; /* Show the burger menu button */
     }
 }

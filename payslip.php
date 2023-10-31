@@ -27,14 +27,15 @@
         </div>
     </header>
     <h1>Payslip</h1>
+    <button onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
     <?php
 // Check if the "id" parameter is set in the URL
 if (isset($_GET['id'])) {
     // Read the employee data from the JSON file
-    $employeeData = json_decode(file_get_contents('employee-data.json'), true);
+    $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
 
     // Read the tax tables from the tax-tables.json file
-    $taxTables = json_decode(file_get_contents('tax-tables.json'), true);
+    $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
     // Find the user with the specified ID
     $selectedEmployee = null;
@@ -110,6 +111,8 @@ if (isset($_GET['id'])) {
         echo "<p>Tax Rate: " . $taxRate . "%</p>";
         echo "<p>Tax Amount: " . "£"  . $taxAmount . "</p>";
         echo "<p>Take-Home Pay: " . "£" . $takeHomePay . "</p>";
+
+        
     }
     echo '</div>';
 

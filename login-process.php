@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $userData = file_get_contents("user-logins.json");
+    $userData = file_get_contents("jsonData/user-logins.json");
     $users = json_decode($userData, true);
 
     var_dump($users);

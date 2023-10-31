@@ -41,10 +41,10 @@
         <tbody>
             <?php
             // Read employee data from JSON file
-            $employeeData = json_decode(file_get_contents('employee-data.json'), true);
+            $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
 
             // Read tax rate data from JSON file
-            $taxTables = json_decode(file_get_contents('tax-tables.json'), true);
+            $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
             foreach ($employeeData as $employee) {
                 $id = $employee['id'];
