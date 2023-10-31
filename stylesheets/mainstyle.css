@@ -76,10 +76,10 @@ body
 
 table 
 {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     max-width: 1500px;
-    max-height: 500px; /* Adjust this value as needed */
+    max-height: 500px;
     overflow-y: auto;
 }
 
@@ -104,6 +104,7 @@ tr:nth-child(even)
 {
     background-color: var(--tertiary-colour);
     color: var(--light-text-colour);
+    text-shadow: 1px 1px 6px #000000;
 }
 
 tr:nth-child(odd) 
@@ -116,6 +117,25 @@ h1
 {
     color: var(--primary-colour);
     text-align: center;
+}
+
+.viewPayslipLink
+{
+    text-decoration: none;
+    color: var(--light-text-colour);
+    background-color: var(--secondary-colour);
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.viewPayslipLink:hover
+{
+    background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
 }
 
 @media screen and (max-width: 900px) 
@@ -141,11 +161,12 @@ h1
     padding: 20px;
     margin: 10px;
     width: 80%;
+    height: 1000px;
     max-width: 1500px;
-    background-color: var(--accent-colour);
+    background-color: var(--light-text-colour);
     color: var(--dark-text-colour);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -153,18 +174,33 @@ h1
     -o-border-radius: 5px;
 }
 
+.employee-container p
+{
+    color: var(--dark-text-colour);
+}
+
 .name-role 
 {
-    flex: 1;
+    /* flex: 1; */
 }
 
 .other-info 
 {
-    flex: 2;
+    /* flex: 2; */
     padding-left: 20px;
 }
 
-
+.profilePhoto
+{
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-position: center;
+}
 /* End of payslip styles */
 
 /* ============================================================================================= */

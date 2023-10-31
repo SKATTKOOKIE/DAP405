@@ -61,7 +61,7 @@
                         <td>$jobPosition</td>
                         <td>£$salary</td>
                         <td>£$afterTaxSalary</td>
-                        <td><a href='payslip.php?id=$id'>View Payslip</a></td>
+                        <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
                       </tr>";
             }
 
