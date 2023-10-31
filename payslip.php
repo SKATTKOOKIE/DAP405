@@ -27,7 +27,7 @@
         </div>
     </header>
     <h1>Payslip</h1>
-    <button onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
+    <button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
     <?php
 // Check if the "id" parameter is set in the URL
 if (isset($_GET['id'])) {
