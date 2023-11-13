@@ -3,30 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Payroll Data</title>
     <link rel="stylesheet" href="stylesheets/mainstyle.css">
     <link rel="stylesheet" href="stylesheets/header.css">
 </head>
 <body>
-<header>
-        <div class="header-container">
-            <div class="header-title">
-                <h1>Woodton Ltd Payroll</h1>
-            </div>
-            <nav class="header-nav">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="#" class="nav-link">Return to Dashboard</a></li>
-                    <li class="nav-item"><a href="login.php" class="nav-link">Logout</a></li>
-                </ul>
-                <button class="burger-menu">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </button>
-            </nav>
-        </div>
-    </header>
-    <h1>Employee Payroll Data</h1>
+    <?php
+        $pageTitle = 'Woodton Ltd Payroll Display';
+        require_once('inc/navbar.php');
+        
+        session_start();
+    ?>
     <table>
         <thead>
             <tr>
@@ -40,13 +26,14 @@
         </thead>
         <tbody>
             <?php
-            // Read employee data from JSON file
-            $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
 
-            // Read tax rate data from JSON file
+            require('calculateTax.php');
+
+            $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
             $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
-            foreach ($employeeData as $employee) {
+            foreach ($employeeData as $employee) 
+            {
                 $id = $employee['id'];
                 $fullName = $employee['firstname'] . ' ' . $employee['lastname'];
                 $jobPosition = $employee['jobtitle'];
@@ -54,6 +41,7 @@
 
                 // Calculate after-tax salary
                 $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                $afterTaxSalary = number_format($afterTaxSalary, 2);
 
                 echo "<tr>
                         <td>$id</td>
@@ -63,20 +51,6 @@
                         <td>£$afterTaxSalary</td>
                         <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
                       </tr>";
-            }
-
-            // Function to calculate after-tax salary based on tax tables
-            function calculateAfterTaxSalary($salary, $taxTables) {
-                $afterTaxSalary = $salary;
-
-                foreach ($taxTables as $taxTable) {
-                    if ($salary >= $taxTable['minsalary'] && $salary <= $taxTable['maxsalary']) {
-                        $afterTaxSalary -= ($taxTable['rate'] / 100) * ($salary - $taxTable['minsalary']);
-                        break;
-                    }
-                }
-
-                return $afterTaxSalary;
             }
             ?>
         </tbody>

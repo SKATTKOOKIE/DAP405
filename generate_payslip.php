@@ -2,6 +2,8 @@
     require('fpdf/fpdf.php'); 
 
     // This has been done so the pound sign prints correctly within the PDF as before I was getting (Â£)
+    // I used this website for the £ code and how to perform the function:
+    // https://www.slideshare.net/Daniel_Rhodes/charset-iconv-phpsourcecode
     $pound = '£';
     $poundCharFormatted = iconv('UTF-8', 'ISO-8859-1', $pound);
 

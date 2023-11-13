@@ -11,7 +11,6 @@ body
     align-items: center;
     height: 100vh;
     margin: 0;
-    padding-top: 60px;
 }
 
 /* ============================================================================================= */
@@ -22,19 +21,26 @@ body
 {
     background-color: var(--tertiary-colour);
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    padding: 10px;
+    width: 20%;
 }
 
 .login-container h2 
 {
     color: var(--light-text-colour);
+    text-align: center;
 }
 
 .login-form 
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
 .input-group 
@@ -59,6 +65,17 @@ body
     background-color: var(--accent-colour);
     color: var(--light-text-colour);
     cursor: pointer;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+}
+
+.input-group input[type="submit"]:hover
+{
+    background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
 }
 
 .error-message
@@ -80,7 +97,8 @@ table
     border-collapse: collapse;
     max-width: 1500px;
     max-height: 500px;
-    overflow-y: auto;
+    position: relative;
+    margin-top: 100px;
 }
 
 table, th, td 
@@ -130,12 +148,18 @@ h1
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
 }
 
 .viewPayslipLink:hover
 {
     background-color: var(--primary-colour);
     color: var(--dark-text-colour);
+    text-shadow: none;
 }
 
 @media screen and (max-width: 900px) 
@@ -194,6 +218,18 @@ h1
 {
     width: 10vh;
     height: 10vh;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-position: center;
+}
+
+.profilePhotoNavbar
+{
+    width: 4vh;
+    height: 4vh;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
