@@ -31,7 +31,7 @@
                 <div class="user-info">
                 <?php
                     // Check if the user is logged in and display their username and image
-                    session_start();
+                    // session_start();
                     if (isset($_SESSION['user'])) {
                         $loggedInUser = $_SESSION['user'];
                         

@@ -9,9 +9,9 @@
 <body>
     <?php
         $pageTitle = 'Woodton Ltd Payroll Display';
-        require_once('inc/navbar.php');
         
         session_start();
+        require_once('inc/navbar.php');
     ?>
     <table>
         <thead>
@@ -21,37 +21,37 @@
                 <th>Job Position</th>
                 <th>Salary (per year)</th>
                 <th>After Tax Salary</th>
-                <th>Action</th> <!-- New column for the "View Payslip" button -->
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <?php
 
-            require('calculateTax.php');
+                require('calculateTax.php');
 
-            $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
-            $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
+                $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
+                $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
-            foreach ($employeeData as $employee) 
-            {
-                $id = $employee['id'];
-                $fullName = $employee['firstname'] . ' ' . $employee['lastname'];
-                $jobPosition = $employee['jobtitle'];
-                $salary = $employee['salary'];
+                foreach ($employeeData as $employee) 
+                {
+                    $id = $employee['id'];
+                    $fullName = $employee['firstname'] . ' ' . $employee['lastname'];
+                    $jobPosition = $employee['jobtitle'];
+                    $salary = $employee['salary'];
 
-                // Calculate after-tax salary
-                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
-                $afterTaxSalary = number_format($afterTaxSalary, 2);
+                    // Calculate after-tax salary
+                    $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                    $afterTaxSalary = number_format($afterTaxSalary, 2);
 
-                echo "<tr>
-                        <td>$id</td>
-                        <td>$fullName</td>
-                        <td>$jobPosition</td>
-                        <td>£$salary</td>
-                        <td>£$afterTaxSalary</td>
-                        <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
-                      </tr>";
-            }
+                    echo "<tr>
+                            <td>$id</td>
+                            <td>$fullName</td>
+                            <td>$jobPosition</td>
+                            <td>£$salary</td>
+                            <td>£$afterTaxSalary</td>
+                            <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
+                        </tr>";
+                }
             ?>
         </tbody>
     </table>

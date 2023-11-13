@@ -98,7 +98,7 @@ table
     max-width: 1500px;
     max-height: 500px;
     position: relative;
-    margin-top: 100px;
+    /* margin-top: 1000px; */
 }
 
 table, th, td 
@@ -196,11 +196,18 @@ h1
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    position: relative;
 }
 
 .employee-container p
 {
     color: var(--dark-text-colour);
+}
+
+.payslipTitle
+{
+    position: relative;
+    margin-top: 200px;
 }
 
 .name-role 
@@ -251,12 +258,21 @@ h1
     font-size: large;
     font-weight: bold;
     text-shadow: 1px 1px 6px #000000;
+    height: 10vh;
 }
 
 .printPayslipButton:hover
 {
     background-color: var(--tertiary-colour);
     cursor: pointer;
+}
+
+.payslipHead
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
 }
 
 /* End of payslip styles */

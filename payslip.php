@@ -10,19 +10,21 @@
     <?php
         $pageTitle = 'Woodton Ltd Payslip Display';
         require_once('inc/navbar.php');
-
-
+        session_start();
     ?>
-    <h1>Payslip</h1>
-    <button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
+    <h1 class="payslipTitle">Payslip</h1>
+    <!-- <button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button> -->
     <?php
 
     require('calculateTax.php');
+    require_once('calculateTimeServed.php');
+
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
     {
         // Import Json files
         $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
+        $jsonFilePath = 'jsonData/employee-data.json';
         $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
         // Find the user with the specified ID
@@ -67,6 +69,11 @@
             echo "<p>Home Address: " . $selectedEmployee['homeaddress'] . "</p>";
             echo "<p>Next Of Kin: " . $selectedEmployee['nextofkin'] . "</p>";
             echo "<p>Employment Start Date: " . $selectedEmployee['employmentstart'] . "</p>";
+            // Calculate time served
+            if (isset($selectedEmployee['employmentstart'])) 
+            {
+                calculateTimeServed($jsonFilePath);
+            }
             echo "<p>Employment End Date: " . $selectedEmployee['employmentend'] . "</p>";
             echo "<p>Pension: " . $selectedEmployee['pension'] . "</p>";
             echo "<p>Pension Type: " . $selectedEmployee['pensiontype'] . "</p>";
@@ -128,5 +135,6 @@
         echo "<p>Invalid request. Please select an employee from the payroll data.</p>";
     }
 ?>
+<button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
 </body>
 </html>

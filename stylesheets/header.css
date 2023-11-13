@@ -2,12 +2,13 @@
 
 header 
 {
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1; /* Ensure the header appears on top of the table */
     background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
 }
 
 .header-container 
@@ -20,11 +21,26 @@ header
     padding: 0 20px;
 }
 
-.header-title h1 
+header h1
 {
     font-size: 24px;
     margin: 0;
-    color: var(--dark-text-colour);
+    color: var(--dark-text-colour) !important;
+    z-index: 1;
+}
+
+header p 
+{
+    color: var(--dark-text-colour) !important;
+    z-index: 1;
+}
+
+.header-title 
+{
+    font-size: 24px;
+    margin: 0;
+    color: var(--dark-text-colour) !important;
+    z-index: 1;
 }
 
 .header-nav 
