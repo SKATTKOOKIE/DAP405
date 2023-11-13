@@ -113,8 +113,8 @@ th, td
 
 th 
 {
-    background-color: var(--primary-colour);
-    color: var(--dark-text-colour);
+    background-color: var(--dark-text-colour);
+    color: var(--primary-colour);
 }
 
 tr:nth-child(even) 
