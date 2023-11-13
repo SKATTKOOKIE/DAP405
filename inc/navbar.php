@@ -26,13 +26,14 @@
             <nav class="header-nav">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="payroll.php" class="nav-link">Return to Dashboard</a></li>
-                    <li class="nav-item"><a href="login.php" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
                 </ul>
                 <div class="user-info">
                 <?php
                     // Check if the user is logged in and display their username and image
                     // session_start();
-                    if (isset($_SESSION['user'])) {
+                    if (isset($_SESSION['user'])) 
+                    {
                         $loggedInUser = $_SESSION['user'];
                         
                         // Load and decode the employee data

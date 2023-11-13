@@ -7,8 +7,8 @@ header
     left: 0;
     width: 100%;
     z-index: 1; /* Ensure the header appears on top of the table */
-    background-color: var(--primary-colour);
-    color: var(--dark-text-colour);
+    background-color: var(--dark-text-colour);
+    color: var(--primary-colour) !important;
 }
 
 .header-container 
@@ -25,13 +25,13 @@ header h1
 {
     font-size: 24px;
     margin: 0;
-    color: var(--dark-text-colour) !important;
+    color: var(--primary-colour) !important;
     z-index: 1;
 }
 
 header p 
 {
-    color: var(--dark-text-colour) !important;
+    color: var(--primary-colour) !important;
     z-index: 1;
 }
 
@@ -55,7 +55,7 @@ header p
     display: flex;
     margin: 0;
     padding: 0;
-    color: var(--dark-text-colour);
+    color: var(--primary-colour);
 }
 
 .nav-item 
@@ -66,7 +66,7 @@ header p
 .nav-link 
 {
     text-decoration: none;
-    color: var(--dark-text-colour);
+    color: var(--primary-colour);
 }
 
 /* Responsive burger menu styles */

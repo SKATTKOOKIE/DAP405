@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    
+    // Check if the user is logged in, if not, redirect to the login page
+    if (!isset($_SESSION['user'])) 
+    {
+        header("Location: login.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +21,6 @@
     <?php
         $pageTitle = 'Woodton Ltd Payslip Display';
         require_once('inc/navbar.php');
-        session_start();
     ?>
     <h1 class="payslipTitle">Payslip</h1>
     <!-- <button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button> -->
@@ -22,6 +32,7 @@
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
     {
+
         // Import Json files
         $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
         $jsonFilePath = 'jsonData/employee-data.json';

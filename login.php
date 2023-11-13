@@ -11,8 +11,6 @@
     <h2>Login</h2>
     <?php
         session_start();
-
-        session_destroy();
     
         // Check for an error message in the URL
         if (isset($_GET['error']) && $_GET['error'] == 1) 

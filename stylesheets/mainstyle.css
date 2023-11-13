@@ -96,9 +96,8 @@ table
     width: 80%;
     border-collapse: collapse;
     max-width: 1500px;
-    max-height: 500px;
     position: relative;
-    /* margin-top: 1000px; */
+    margin-top: 20vw;
 }
 
 table, th, td 
@@ -167,7 +166,9 @@ h1
     table
     {
        padding: 5000px;
+       margin-top: 100vw;
     }
+
 }
 
 
@@ -210,10 +211,10 @@ h1
     margin-top: 200px;
 }
 
-.name-role 
+/* .name-role 
 {
-    /* flex: 1; */
-}
+
+} */
 
 .other-info 
 {
