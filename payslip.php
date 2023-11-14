@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require('inc/config.php');
     
     // Check if the user is logged in, if not, redirect to the login page
     if (!isset($_SESSION['user'])) 
@@ -22,20 +23,20 @@
         $pageTitle = 'Woodton Ltd Payslip Display';
         require_once('inc/navbar.php');
     ?>
+    
     <h1 class="payslipTitle">Payslip</h1>
-    <!-- <button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button> -->
-    <?php
 
+    <?php
     require('calculateTax.php');
+    require('calculateAge.php');
     require_once('calculateTimeServed.php');
+    require('inc/globalVar.php');
 
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
     {
-
         // Import Json files
         $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
-        $jsonFilePath = 'jsonData/employee-data.json';
         $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
         // Find the user with the specified ID
@@ -49,14 +50,11 @@
             }
         }
 
-        // Start an HTML container for styling
         echo '<div class="employee-container">';
-
-        // Create a div for name and role on the right
         echo '<div class="name-role">';
         if ($selectedEmployee) 
         {
-            echo "<h2>Basics Details</h2>";
+            echo "<h2>Basic Details</h2>";
             echo '<img class="profilePhoto" src="images/' . $selectedEmployee['photo'] . '" alt="Employee Photo">';
             echo "<p>Name: " . $selectedEmployee['firstname'] . ' ' . $selectedEmployee['lastname'] . "</p>";
             echo "<p>ID: " . $selectedEmployee['id'] . "</p>";
@@ -68,7 +66,7 @@
         }
         echo '</div>';
 
-        echo '<div class="name-role">';
+        echo '<div class="employee-info">';
         if ($selectedEmployee) 
         {
             echo "<h2>Personal details</h2>";
@@ -83,8 +81,14 @@
             // Calculate time served
             if (isset($selectedEmployee['employmentstart'])) 
             {
-                calculateTimeServed($jsonFilePath);
+                calculateTimeServed($selectedEmployee['employmentstart']);
             }
+            // Calculate age
+            if (isset($selectedEmployee['dob'])) 
+            {
+                calculateAge($selectedEmployee['dob']);
+            }
+
             echo "<p>Employment End Date: " . $selectedEmployee['employmentend'] . "</p>";
             echo "<p>Pension: " . $selectedEmployee['pension'] . "</p>";
             echo "<p>Pension Type: " . $selectedEmployee['pensiontype'] . "</p>";
@@ -94,24 +98,43 @@
         }
         echo '</div>';
 
-        // Create a div for the rest of the information on the left
         echo '<div class="other-info">';
         echo "<h2>Pay Details</h2>";
 
         if ($selectedEmployee) 
         {
-            echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
-            echo "<p>Salary (per year): £" . $selectedEmployee['salary'] . "</p\n";
+            $salary = $selectedEmployee['salary'];
+            $currency = $selectedEmployee['currency'];
 
-            // Calculate take-home pay
-            $takeHomePay = calculateAfterTaxSalary($selectedEmployee['salary'], $taxTables);
+            // Check the currency and perform calculations accordingly
+            if ($currency == 'GBP') 
+            {
+                $employeesCurrency = $pounds;
+                // Calculate after-tax salary
+                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+            } 
+            elseif ($currency == 'USD') 
+            {
+                $employeesCurrency = $dollars;
+                // Convert dollars to pounds
+                $exchangedSalary = $salary * $usdToGbp;
+                // Tax at British rate
+                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                // Convert back to USD
+                $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
+            }
+
+            echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
+            echo "<p>Salary (per year): ". $employeesCurrency . $selectedEmployee['salary'] . "</p\n";
 
             // Fetch the applicable tax rate
             $taxRate = null;
-            foreach ($taxTables as $taxBracket) {
+            foreach ($taxTables as $taxBracket) 
+            {
                 $minSalary = $taxBracket['minsalary'];
                 $maxSalary = $taxBracket['maxsalary'];
-                if ($selectedEmployee['salary'] >= $minSalary && $selectedEmployee['salary'] <= $maxSalary) {
+                if ($selectedEmployee['salary'] >= $minSalary && $selectedEmployee['salary'] <= $maxSalary)
+                {
                     $taxRate = $taxBracket['rate'];
                     break;
                 }
@@ -121,24 +144,23 @@
             $grossPay = $selectedEmployee['salary'];
 
             // Calculate the total amount of tax paid
-            $totalTaxPaid = $grossPay - $takeHomePay;
+            $totalTaxPaid = $grossPay - $afterTaxSalary;
 
-            echo "<p>Take-Home Pay: £" . number_format($takeHomePay, 2) . "</p\n";
+            echo "<p>Take-Home Pay: ". $employeesCurrency . number_format($afterTaxSalary, 2) . "</p\n";
             
             // Display the applicable tax rate
             if ($taxRate !== null) {
                 echo "<p>Tax Rate: " . $taxRate . "%</p>";
-            } else {
+            } 
+            else 
+            {
                 echo "<p>Tax Rate: N/A</p>";
             }
 
-            echo "<p>Total Tax Paid: £" . number_format($totalTaxPaid, 2) . "</p>";
+            echo "<p>Total Tax Paid: ". $employeesCurrency . number_format($totalTaxPaid, 2) . "</p>";
         }
-
-        
+       
         echo '</div>';
-
-        // Close the HTML container
         echo '</div>';
     } 
     else 

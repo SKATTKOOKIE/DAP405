@@ -53,9 +53,10 @@
                                 break; // Stop searching after finding a match
                             }
                         }
-                        
+                        echo '<pre class="navbarProfileContainer">';
                         echo '<img class="profilePhotoNavbar" src="images/' . $employeeImage . '" alt="User Image">';
-                        echo '<p>' . $employeeName;
+                        echo '<pre>' . $employeeName;
+                        echo '</pre>';
                     }
                 ?>
                 </div>

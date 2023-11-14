@@ -1,6 +1,7 @@
 
 <?php
     session_start();
+    require('inc/config.php');
     
     // Check if the user is logged in, if not, redirect to the login page
     if (!isset($_SESSION['user'])) 
@@ -20,8 +21,6 @@
 <body>
     <?php
         $pageTitle = 'Woodton Ltd Payroll Display';
-        
-        // session_start();
         require_once('inc/navbar.php');
     ?>
     <table>
@@ -37,13 +36,12 @@
         </thead>
         <tbody>
             <?php
-
+                // Global variables
+                require('inc/globalVar.php');
                 require('calculateTax.php');
 
                 $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
                 $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
-                // Global variables
-                require('inc/globalVar.php');
 
                 foreach ($employeeData as $employee) 
                 {
@@ -55,14 +53,14 @@
 
                     if($currency == 'GBP')
                     {
-                        $employeesCurrency = '£';
+                        $employeesCurrency = $pounds;
                         // Calculate after-tax salary
                         $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
                     if($currency == 'USD')
                     {
-                        $employeesCurrency = '$';
+                        $employeesCurrency = $dollars;
                         // Convert dollars to pounds
                         $exchangedSalary = $salary * $usdToGbp;
                         // Tax at british rate

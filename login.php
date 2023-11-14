@@ -11,6 +11,7 @@
     <h2>Login</h2>
     <?php
         session_start();
+        require('inc/config.php');
     
         // Check for an error message in the URL
         if (isset($_GET['error']) && $_GET['error'] == 1) 
