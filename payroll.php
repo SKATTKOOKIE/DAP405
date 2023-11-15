@@ -52,6 +52,7 @@
                     $jobPosition = $employee['jobtitle'];
                     $salary = $employee['salary'];
                     $currency = $employee['currency'];
+                    $salaryFormatted = number_format($salary, 2);
 
                     if($currency == 'GBP')
                     {
@@ -60,6 +61,7 @@
                         $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
+
                     if($currency == 'USD')
                     {
                         $employeesCurrency = $dollars;
@@ -79,7 +81,7 @@
                             <td>$id</td>
                             <td>$fullName</td>
                             <td>$jobPosition</td>
-                            <td>$employeesCurrency$salary</td>
+                            <td>$employeesCurrency$salaryFormatted</td>
                             <td>$employeesCurrency$afterTaxSalary</td>
                             <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
                         </tr>";

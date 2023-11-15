@@ -22,6 +22,7 @@
                     // and return salary as is
                     $afterTaxSalary = $salary;
                 } 
+                
                 elseif ($taxBracket['id'] == 2) 
                 {
                     // Remove untaxable £10,000 from salary
@@ -31,6 +32,7 @@
                     // Calculate the after-tax salary for Basic rate
                     $afterTaxSalary = $salary - $payAfterTax;
                 } 
+
                 elseif ($taxBracket['id'] == 3) 
                 {
                     // Remove first £10,000 and band 2s £30,000 as these are calculated
@@ -42,9 +44,9 @@
                     // Calculate the after-tax salary for Higher rate
                     $afterTaxSalary = $salary - $totalDeductions;
                 } 
+
                 elseif ($taxBracket['id'] == 4) 
                 {
-
                     // Remove first £10,000, band 2s £30,000 & band 3s £110,000
                     // as these are calculated at a different tax percentage
                     $removedUnTaxablePay = $salary - $minSalary;

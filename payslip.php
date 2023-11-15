@@ -105,6 +105,7 @@
         {
             $salary = $selectedEmployee['salary'];
             $currency = $selectedEmployee['currency'];
+            $salaryFormatted = number_format($salary, 2);
 
             // Check the currency and perform calculations accordingly
             if ($currency == 'GBP') 
@@ -125,7 +126,7 @@
             }
 
             echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
-            echo "<p>Salary (per year): ". $employeesCurrency . $selectedEmployee['salary'] . "</p\n";
+            echo "<p>Salary (per year): ". $employeesCurrency . $salaryFormatted . "</p\n";
 
             // Fetch the applicable tax rate
             $taxRate = null;
@@ -149,9 +150,11 @@
             echo "<p>Take-Home Pay: ". $employeesCurrency . number_format($afterTaxSalary, 2) . "</p\n";
             
             // Display the applicable tax rate
-            if ($taxRate !== null) {
+            if ($taxRate !== null) 
+            {
                 echo "<p>Tax Rate: " . $taxRate . "%</p>";
             } 
+            
             else 
             {
                 echo "<p>Tax Rate: N/A</p>";
@@ -168,6 +171,6 @@
         echo "<p>Invalid request. Please select an employee from the payroll data.</p>";
     }
 ?>
-<button class="printPayslipButton" onclick="window.location.href='generate_payslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
+<button class="printPayslipButton" onclick="window.location.href='generatePayslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
 </body>
 </html>

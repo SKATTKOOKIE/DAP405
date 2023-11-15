@@ -61,6 +61,7 @@
 
             // Add employee's pay details to the PDF
             $pdf->SetFont('Arial', '', 12);
+            $pdf->Cell(0, 10, 'Date: ' . date('d-m-y'), 0, 1);
             $pdf->Cell(0, 10, 'ID: ' . $selectedEmployee['id'], 0, 1);
             $pdf->Cell(0, 10, 'Name: ' . $selectedEmployee['firstname'] . ' ' . $selectedEmployee['lastname'], 0, 1);
             $pdf->Cell(0, 10, 'Job Title: ' . $selectedEmployee['jobtitle'], 0, 1);

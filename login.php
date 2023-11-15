@@ -19,7 +19,7 @@
             echo '<p class="error-message">Username or password is incorrect. Please try again.</p>';
         }
     ?>
-    <form class="login-form" method="post" action="login-process.php">
+    <form class="login-form" method="post" action="loginProcess.php">
         <div class="input-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>

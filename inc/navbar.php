@@ -26,7 +26,7 @@
             <nav class="header-nav">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="payroll.php" class="nav-link">Return to Dashboard</a></li>
-                    <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="logoutProcess.php" class="nav-link">Logout</a></li>
                 </ul>
                 <div class="user-info">
                 <?php
