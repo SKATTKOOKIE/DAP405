@@ -15,6 +15,7 @@ header
     z-index: 1; 
     background-color: var(--dark-text-colour);
     color: var(--primary-colour) !important;
+    margin: auto;
 }
 
 .header-container 

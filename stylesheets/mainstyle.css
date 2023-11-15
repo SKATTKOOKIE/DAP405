@@ -60,7 +60,6 @@ body
     border-radius: 4px;
 }
 
-
 .input-group input[type="submit"] 
 {
     background-color: var(--accent-colour);
@@ -98,7 +97,8 @@ table
     border-collapse: collapse;
     max-width: 1500px;
     position: relative;
-    margin-top: 20vw;
+    margin-top: 27vw;
+
 }
 
 table, th, td 
@@ -110,6 +110,7 @@ th, td
 {
     padding: 10px;
     text-align: left;
+    max-width: 100px;
 }
 
 th 
@@ -128,13 +129,25 @@ tr:nth-child(even)
 tr:nth-child(odd) 
 {
     background-color: var(--accent-colour);
-
 }
 
 h1 
 {
     color: var(--primary-colour);
     text-align: center;
+}
+
+#table-image
+{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    background-position: center;
 }
 
 .viewPayslipLink
@@ -170,7 +183,6 @@ h1
        padding: 5000px;
        margin-top: 100vw;
     }
-
 }
 
 
@@ -258,7 +270,7 @@ h1
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     background-position: center;
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0,0.5);
+    box-shadow: 0px 0px 5px 1px var(--half-shadow);
 }
 
 .printPayslipButton

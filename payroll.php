@@ -26,6 +26,7 @@
     <table>
         <thead>
             <tr>
+                <th>Photo</th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Job Position</th>
@@ -39,6 +40,7 @@
                 // Global variables
                 require('inc/globalVar.php');
                 require('calculateTax.php');
+                require('getUserPhoto.php');
 
                 $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
                 $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
@@ -70,7 +72,10 @@
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
 
+                    $userPhotoCell = getUserPhotoCell($id);
+
                     echo "<tr>
+                            $userPhotoCell
                             <td>$id</td>
                             <td>$fullName</td>
                             <td>$jobPosition</td>
