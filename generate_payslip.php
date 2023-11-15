@@ -1,18 +1,15 @@
 <?php
     require('fpdf/fpdf.php'); 
+    require('calculateTax.php');
+    require('inc/globalVar.php');
 
-    // This has been done so the pound sign prints correctly within the PDF as before I was getting (Â£)
-    // I used this website for the £ code and how to perform the function:
-    // https://www.slideshare.net/Daniel_Rhodes/charset-iconv-phpsourcecode
-    $pound = '£';
-    $poundCharFormatted = iconv('UTF-8', 'ISO-8859-1', $pound);
-
+    // Read the employee data & tax brackets from corresponding external JSON
+    $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
+    $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
+    
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
-    {
-        // Read the employee data from the JSON file
-        $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
-
+    {   
         // Find the user with the specified ID
         $selectedEmployee = null;
         foreach ($employeeData as $employee) 
@@ -31,8 +28,31 @@
         // Add content to the PDF
         if ($selectedEmployee) 
         {
+            $salary = $selectedEmployee['salary'];
+            $salaryFormatted = number_format($salary, 2);
+            $currency = $selectedEmployee['currency'];
 
-            $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
+            if($currency == 'GBP')
+            {
+                $employeesCurrency = iconv('UTF-8', 'ISO-8859-1', $pounds);
+                // Calculate after-tax salary
+                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                $numericSalary = (int)$afterTaxSalary;
+                $afterTaxSalary = number_format($afterTaxSalary, 2);
+            }
+
+            if($currency == 'USD')
+            {
+                $employeesCurrency = $dollars;
+                // Convert dollars to pounds
+                $exchangedSalary = $salary * $usdToGbp;
+                // Tax at british rate
+                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                // Convert back to USD
+                $numericSalary = (int)$afterTaxSalary;
+                $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
+                $afterTaxSalary = number_format($afterTaxSalary, 2);
+            }
 
             // Set the title and center it
             $pdf->SetFont('Arial', 'B', 16);
@@ -49,14 +69,14 @@
 
             // Create a table for financial information
             $pdf->SetFont('Arial', 'B', 14);
-            $pdf->Cell(50, 10, 'Description', 1);
-            $pdf->Cell(40, 10, 'Amount', 1);
+            $pdf->Cell(100, 10, 'Description', 1);
+            $pdf->Cell(80, 10, 'Amount', 1);
             $pdf->Ln();
 
             // Display Salary
             $pdf->SetFont('Arial', '', 12);
-            $pdf->Cell(50, 10, 'Salary (per year):', 1);
-            $pdf->Cell(40, 10, $poundCharFormatted . $selectedEmployee['salary'], 1);
+            $pdf->Cell(100, 10, 'Salary (per year):', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . $salaryFormatted, 1);
             $pdf->Ln();
 
             // Calculate the applicable tax rate based on the salary
@@ -70,23 +90,22 @@
                 }
             }
 
-            // Calculate the take-home pay
-            $taxAmount = ($selectedEmployee['salary'] * $taxRate) / 100;
-            $takeHomePay = $selectedEmployee['salary'] - $taxAmount;
+            // Calculate tax amount
+            $taxAmount = $salary - $numericSalary;
 
             // Display Tax Rate
-            $pdf->Cell(50, 10, 'Tax Rate:', 1);
-            $pdf->Cell(40, 10, $taxRate . '%', 1);
+            $pdf->Cell(100, 10, 'Tax Rate:', 1);
+            $pdf->Cell(80, 10, $taxRate . '%', 1);
             $pdf->Ln();
 
             // Display Tax Amount
-            $pdf->Cell(50, 10, 'Tax Amount:', 1);
-            $pdf->Cell(40, 10, $poundCharFormatted . $taxAmount, 1);
+            $pdf->Cell(100, 10, 'Tax Amount:', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . number_format($taxAmount, 2), 1);
             $pdf->Ln();
 
             // Display Take-Home Pay
-            $pdf->Cell(50, 10, 'Take-Home Pay:', 1);
-            $pdf->Cell(40, 10, $poundCharFormatted . $takeHomePay, 1);
+            $pdf->Cell(100, 10, 'Take-Home Pay:', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . $afterTaxSalary, 1);
             $pdf->Ln();
 
             // Output the PDF (you can save it or display it)

@@ -1,5 +1,4 @@
 <?php
-
     function calculateAfterTaxSalary($salary, $taxTables) 
     {
         $afterTaxSalary = $salary; // Default value in case there's no matching tax bracket
