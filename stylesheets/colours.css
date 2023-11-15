@@ -7,4 +7,5 @@
     --light-text-colour: #f3f3f3;
     --dark-text-colour: #272727;
     --error-colour:#ff9900;
+    --half-shadow:rgba(0, 0, 0,0.5);
 }

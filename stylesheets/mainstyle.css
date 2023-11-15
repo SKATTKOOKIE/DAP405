@@ -7,6 +7,7 @@ body
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     margin: 0;
@@ -20,19 +21,26 @@ body
 {
     background-color: var(--tertiary-colour);
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    padding: 10px;
+    width: 40%;
 }
 
 .login-container h2 
 {
     color: var(--light-text-colour);
+    text-align: center;
 }
 
 .login-form 
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
 .input-group 
@@ -57,6 +65,17 @@ body
     background-color: var(--accent-colour);
     color: var(--light-text-colour);
     cursor: pointer;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+}
+
+.input-group input[type="submit"]:hover
+{
+    background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
 }
 
 .error-message
@@ -65,5 +84,225 @@ body
 }
 
 /* End of login styles */
+
+/* ============================================================================================= */
+
+/* ============================================================================================= */
+
+/* Start of employee-data-general styles */
+
+table 
+{
+    width: 80%;
+    border-collapse: collapse;
+    max-width: 1500px;
+    position: relative;
+    margin-top: 27vw;
+
+}
+
+table, th, td 
+{
+    border: 1px solid var(--secondary-colour);
+}
+
+th, td 
+{
+    padding: 10px;
+    text-align: left;
+    max-width: 100px;
+}
+
+th 
+{
+    background-color: var(--dark-text-colour);
+    color: var(--primary-colour);
+}
+
+tr:nth-child(even) 
+{
+    background-color: var(--tertiary-colour);
+    color: var(--light-text-colour);
+    text-shadow: 1px 1px 6px #000000;
+}
+
+tr:nth-child(odd) 
+{
+    background-color: var(--accent-colour);
+}
+
+h1 
+{
+    color: var(--primary-colour);
+    text-align: center;
+}
+
+#table-image
+{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+    background-position: center;
+}
+
+.viewPayslipLink
+{
+    text-decoration: none;
+    color: var(--light-text-colour);
+    background-color: var(--secondary-colour);
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    transition: 0.4s;
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+}
+
+.viewPayslipLink:hover
+{
+    background-color: var(--primary-colour);
+    color: var(--dark-text-colour);
+    text-shadow: none;
+}
+
+@media screen and (max-width: 900px) 
+{
+    table
+    {
+       padding: 5000px;
+       margin-top: 100vw;
+    }
+}
+
+
+/* End of employee-data-general styles */
+
+/* ============================================================================================= */
+
+/* ============================================================================================= */
+
+/* Start of payslip styles */
+
+.employee-container 
+{
+    border: 1px solid var(--light-text-colour);
+    padding: 20px;
+    margin: 10px;
+    width: 80%;
+    height: 1000px;
+    max-width: 1500px;
+    background-color: var(--light-text-colour);
+    color: var(--dark-text-colour);
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    position: relative;
+}
+
+.employee-container p
+{
+    color: var(--dark-text-colour);
+}
+
+.payslipTitle
+{
+    position: relative;
+    margin-top: 200px;
+}
+
+.name-role 
+{
+    border: 1px solid var(--dark-text-colour);
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+} 
+
+.employee-info
+{
+        border: 1px solid var(--dark-text-colour);
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.other-info 
+{
+    /* flex: 2; */
+    padding-left: 20px;
+    border: 1px solid var(--dark-text-colour);
+    padding: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.profilePhoto
+{
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-position: center;
+    box-shadow: 0px 0px 5px 1px var(--half-shadow);
+}
+
+.printPayslipButton
+{
+    background-color: var(--accent-colour);
+    padding: 1vw;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    color: var(--light-text-colour);
+    font-size: large;
+    font-weight: bold;
+    text-shadow: 1px 1px 6px #000000;
+    height: 10vh;
+}
+
+.printPayslipButton:hover
+{
+    background-color: var(--tertiary-colour);
+    cursor: pointer;
+}
+
+.payslipHead
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+}
+
+/* End of payslip styles */
 
 /* ============================================================================================= */

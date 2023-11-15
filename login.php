@@ -10,12 +10,16 @@
 <div class="login-container">
     <h2>Login</h2>
     <?php
-    // Check for an error message in the URL
-    if (isset($_GET['error']) && $_GET['error'] == 1) {
-        echo '<p class="error-message">Username or password is incorrect. Please try again.</p>';
-    }
+        session_start();
+        require('inc/config.php');
+    
+        // Check for an error message in the URL
+        if (isset($_GET['error']) && $_GET['error'] == 1) 
+        {
+            echo '<p class="error-message">Username or password is incorrect. Please try again.</p>';
+        }
     ?>
-    <form class="login-form" method="post" action="login-process.php">
+    <form class="login-form" method="post" action="loginProcess.php">
         <div class="input-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
@@ -27,10 +31,14 @@
         <div class="input-group">
             <input type="submit" value="Login">
         </div>
-        <div class="input-group">
-            <p>HINT!!!!! Username: "root"   |   Password: "password" </p>
-        </div>
     </form>
 </div>
+
+<div class="login-container">
+    <p>Usernames: 7265, 3565, 1360, 9784, 9140, 6505, 1532, 6985, 3021, 2694, 8114, 7296, 4213, 4159, 8861, 9790, 2499, 8632, 8734, 9295, </p>
+    <p>Passwords: password</p>
+</div>
+
+
 </body>
 </html>

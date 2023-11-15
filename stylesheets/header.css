@@ -1,0 +1,137 @@
+@import url(colours.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*
+{
+    font-family: 'Roboto', sans-serif;
+}
+
+header 
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1; 
+    background-color: var(--dark-text-colour);
+    color: var(--primary-colour) !important;
+    margin: auto;
+}
+
+.header-container 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.profilePhotoNavbar
+{
+    width: 4vh;
+    height: 4vh;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-position: center;
+    position: relative;
+    margin: 5px;
+    aspect-ratio: 1/1;
+}
+
+.navbarProfileContainer
+{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+}
+
+header h1
+{
+    font-size: 24px;
+    margin: 0;
+    color: var(--primary-colour) !important;
+    z-index: 1;
+}
+
+header p 
+{
+    color: var(--primary-colour) !important;
+    z-index: 1;
+}
+
+.header-title 
+{
+    font-size: 24px;
+    margin: 0;
+    color: var(--dark-text-colour) !important;
+    z-index: 1;
+}
+
+.header-nav 
+{
+    display: flex;
+    align-items: center;
+}
+
+.nav-list 
+{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-colour);
+}
+
+.nav-item 
+{
+    margin-right: 20px;
+}
+
+.nav-link 
+{
+    text-decoration: none;
+    color: var(--primary-colour);
+}
+
+/* Responsive burger menu styles */
+.burger-menu 
+{
+    display: none; /* Initially hidden for larger screens */
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.bar 
+{
+    background-color: #fff;
+    height: 3px;
+    width: 25px;
+    margin: 3px 0;
+}
+
+/* Media query to show burger menu for screens below 900px */
+@media screen and (max-width: 900px) 
+{
+    .nav-list 
+    {
+        display: none; /* Hide the regular nav list */
+    }
+
+    .burger-menu 
+    {
+        display: flex; /* Show the burger menu button */
+    }
+}
