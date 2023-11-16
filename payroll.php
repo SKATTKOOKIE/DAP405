@@ -42,7 +42,19 @@
                 require('calculateTax.php');
                 require('getUserPhoto.php');
 
-                $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
+                $employeeDataFile = 'jsonData/employee-data.json';
+
+                if (file_exists($employeeDataFile)) 
+                {
+                    $employeeData = json_decode(file_get_contents($employeeDataFile), true);
+                } 
+                else 
+                {
+                    // If the file doesn't exist, show "no data"
+                    echo "<tr><td colspan='7'>No data</td></tr>";
+                    exit(); // Exit the script
+                }
+
                 $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
                 foreach ($employeeData as $employee) 
