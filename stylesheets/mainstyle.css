@@ -300,17 +300,17 @@ h1
 .printPayslipButton
 {
     background-color: var(--accent-colour);
-    padding: 1vw;
+    padding: 0.5vw;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     color: var(--light-text-colour);
-    font-size: large;
+    font-size: 1vw;
     font-weight: bold;
     text-shadow: 1px 1px 6px #000000;
-    height: 10vh;
+    height: 5vh;
 }
 
 .printPayslipButton:hover
@@ -325,6 +325,14 @@ h1
     flex-direction: row;
     justify-content: space-between;
     width: 80%;
+}
+
+.Button-container
+{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: center;
 }
 
 /* End of payslip styles */

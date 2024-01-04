@@ -10,7 +10,8 @@
         $users = json_decode($userData, true);
         
         // Check if the submitted username and password match
-        foreach ($users as $user) {
+        foreach ($users as $user) 
+        {
             if ($user["username"] === $username && $user["password"] === $password) 
             {
                 // Successful login - Redirect to employee salaries

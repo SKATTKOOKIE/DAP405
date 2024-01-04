@@ -25,7 +25,14 @@
     ?>
     
     <h1 class="payslipTitle">Payslip</h1>
-    <button class="printPayslipButton" onclick="window.location.href='generatePayslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
+
+    <div class="Button-container">
+        <button class="printPayslipButton" onclick="window.location.href='generatePayslip.php?id=<?php echo $_GET['id']; ?>'">Print Payslip</button>
+
+        <a href="generatePayslip.php?id=<?php echo $_GET['id']; ?>" download="payslip.pdf">
+            <button class="printPayslipButton">Download Payslip</button>
+        </a>
+    </div>
 
     <?php
     require('inc/globalVar.php');
