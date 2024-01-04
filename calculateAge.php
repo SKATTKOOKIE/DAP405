@@ -1,6 +1,8 @@
 <?php
     function calculateAge($dob)
     {
+        require('inc/globalVar.php');
+
         // Get the current date
         $currentDate = new DateTime();
 
@@ -13,7 +15,14 @@
         // Get the years from the interval
         $years = $interval->y;
 
-        // Output the result
-        echo "Age: $years years.";
+        if($years < $minimumWorkingAge)
+        {
+            echo "Age is beneath required minimum please check records";
+        }
+        else
+        {
+            // Output the result
+            echo "Age: $years years old.";
+        }
     }
 ?>

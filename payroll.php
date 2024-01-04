@@ -43,6 +43,7 @@
                 require('getUserPhoto.php');
 
                 $employeeDataFile = 'jsonData/employee-data.json';
+                $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
                 if (file_exists($employeeDataFile)) 
                 {
@@ -55,7 +56,6 @@
                     exit(); // Exit the script
                 }
 
-                $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
 
                 foreach ($employeeData as $employee) 
                 {
