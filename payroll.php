@@ -23,6 +23,7 @@
         $pageTitle = 'Woodton Ltd Payroll Display';
         require_once('inc/navbar.php');
     ?>
+    <div class="PayrollContainer">
     <table>
         <thead>
             <tr>
@@ -37,10 +38,8 @@
         </thead>
         <tbody>
             <?php
-                // Global variables
                 require('inc/globalVar.php');
-                require('calculateTax.php');
-                require('getUserPhoto.php');
+                require('inc/functions.php');
 
                 $employeeDataFile = 'jsonData/employee-data.json';
                 $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
@@ -101,5 +100,6 @@
             ?>
         </tbody>
     </table>
+</div>
 </body>
 </html>

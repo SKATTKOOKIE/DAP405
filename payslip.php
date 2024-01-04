@@ -27,11 +27,8 @@
     <h1 class="payslipTitle">Payslip</h1>
 
     <?php
-    require('calculateTax.php');
-    require('calculateAge.php');
-    require_once('calculateTimeServed.php');
     require('inc/globalVar.php');
-    require('sendEmail.php');
+    require('inc/functions.php');
 
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 

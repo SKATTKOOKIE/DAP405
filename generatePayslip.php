@@ -1,7 +1,7 @@
 <?php
     require('fpdf/fpdf.php'); 
-    require('calculateTax.php');
     require('inc/globalVar.php');
+    require('inc/functions.php');
 
     // Read the employee data & tax brackets from corresponding external JSON
     $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
