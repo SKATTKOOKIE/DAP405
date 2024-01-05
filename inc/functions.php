@@ -81,12 +81,12 @@ function calculateAfterTaxSalary($salary, $taxTables)
 
             elseif ($taxBracket['id'] == 4) 
             {
-                // Remove first £10,000, band 2s £30,000 & band 3s £110,000
+                // half untaxable and remove, band 2s £30,000 & band 3s £110,000
                 // as these are calculated at a different tax percentage
                 $removedUnTaxablePay = $salary - $minSalary;
                 // Calculate the Deductable from the salary
                 $payAfterTax = $removedUnTaxablePay * ($taxRate / 100);
-                $totalDeductions = $payAfterTax + $taxBandTwoDeductionIfUserExceedsThreshold + $taxBandThreeDeductionIfUserExceedsThreshold + $untaxableIncome;
+                $totalDeductions = $payAfterTax + $taxBandTwoDeductionIfUserExceedsThreshold + $taxBandThreeDeductionIfUserExceedsThreshold + ($untaxableIncome * 0.5);
 
                 // Calculate the after-tax salary for Super rate
                 $afterTaxSalary = $salary - $totalDeductions;
@@ -137,6 +137,4 @@ function getUserPhotoCell($userId)
     }
 }
 // ________________________________________________________________________________
-
-
 ?>
