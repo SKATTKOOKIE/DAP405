@@ -2,9 +2,9 @@
     require('fpdf/fpdf.php'); 
     require('inc/globalVar.php');
     require('inc/functions.php');
+    require('inc/config.php');
 
     session_start();
-    require('inc/config.php');
     
     // Check if the user is logged in, if not, redirect to the login page
     if (!isset($_SESSION['user'])) 
