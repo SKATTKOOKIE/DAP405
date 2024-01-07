@@ -3,6 +3,16 @@
     require('inc/globalVar.php');
     require('inc/functions.php');
 
+    session_start();
+    require('inc/config.php');
+    
+    // Check if the user is logged in, if not, redirect to the login page
+    if (!isset($_SESSION['user'])) 
+    {
+        header("Location: login.php");
+        exit();
+    }
+
     // Read the employee data & tax brackets from corresponding external JSON
     $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
     $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
@@ -31,12 +41,14 @@
             $salary = $selectedEmployee['salary'];
             $salaryFormatted = number_format($salary, 2);
             $currency = $selectedEmployee['currency'];
+            $hasCompanyCar = $selectedEmployee['companycar'];
+            $id = $selectedEmployee['id'];
 
             if($currency == 'GBP')
             {
                 $employeesCurrency = iconv('UTF-8', 'ISO-8859-1', $pounds);
                 // Calculate after-tax salary
-                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
                 $numericSalary = (int)$afterTaxSalary;
                 $afterTaxSalary = number_format($afterTaxSalary, 2);
             }
@@ -47,7 +59,7 @@
                 // Convert dollars to pounds
                 $exchangedSalary = $salary * $usdToGbp;
                 // Tax at british rate
-                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
                 // Convert back to USD
                 $numericSalary = (int)$afterTaxSalary;
                 $afterTaxSalary = $afterTaxSalary * $gbpToUsd;

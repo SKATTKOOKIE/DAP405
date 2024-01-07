@@ -63,13 +63,14 @@
                     $jobPosition = $employee['jobtitle'];
                     $salary = $employee['salary'];
                     $currency = $employee['currency'];
+                    $hasCompanyCar = $employee['companycar'];
                     $salaryFormatted = number_format($salary, 2);
 
                     if($currency == 'GBP')
                     {
                         $employeesCurrency = $pounds;
                         // Calculate after-tax salary
-                        $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                        $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
 
@@ -79,7 +80,7 @@
                         // Convert dollars to pounds
                         $exchangedSalary = $salary * $usdToGbp;
                         // Tax at british rate
-                        $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                        $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
                         // Convert back to USD
                         $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
                         $afterTaxSalary = number_format($afterTaxSalary, 2);

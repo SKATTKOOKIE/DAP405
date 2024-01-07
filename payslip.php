@@ -85,34 +85,45 @@
         echo '</div>';
 
         echo '<div class="other-info">';
+        // ==========================================================================================
         echo "<h2>Pay Details</h2>";
+
+        
 
         if ($selectedEmployee) 
         {
             $salary = $selectedEmployee['salary'];
             $currency = $selectedEmployee['currency'];
             $salaryFormatted = number_format($salary, 2);
+            $hasCompanyCar = $selectedEmployee['companycar'];
+            $cheese = $selectedEmployee['companycar'];
 
-            // Check the currency and perform calculations accordingly
-            if ($currency == 'GBP') 
+
+            if($currency == 'GBP')
             {
                 $employeesCurrency = $pounds;
                 // Calculate after-tax salary
-                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
-            } 
-            elseif ($currency == 'USD') 
+                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
+                $afterTaxSalary = number_format($afterTaxSalary, 2);
+            }
+
+            if($currency == 'USD')
             {
                 $employeesCurrency = $dollars;
                 // Convert dollars to pounds
                 $exchangedSalary = $salary * $usdToGbp;
-                // Tax at British rate
-                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                // Tax at british rate
+                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
                 // Convert back to USD
                 $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
+                $afterTaxSalary = number_format($afterTaxSalary, 2);
             }
 
+
+            echo "<p>Reports to: " . $cheese . "</p>";
             echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
             echo "<p>Salary (per year): ". $employeesCurrency . $salaryFormatted . "</p>\n";
+            echo "<p> After tax salary (per year): ". $employeesCurrency . $afterTaxSalary . "</p>\n";
 
             // Fetch the applicable tax rate
             $taxRate = null;
@@ -126,14 +137,6 @@
                     break;
                 }
             }
-
-            // Calculate gross pay
-            $grossPay = $selectedEmployee['salary'];
-
-            // Calculate the total amount of tax paid
-            $totalTaxPaid = $grossPay - $afterTaxSalary;
-
-            echo "<p>Take-Home Pay: ". $employeesCurrency . number_format($afterTaxSalary, 2) . "</p>\n";
             
             // Display the applicable tax rate
             if ($taxRate !== null) 
@@ -144,13 +147,12 @@
             {
                 echo "<p>Tax Rate: N/A</p>";
             }
-
-            echo "<p>Total Tax Paid: ". $employeesCurrency . number_format($totalTaxPaid, 2) . "</p>";
         }
-       
+    //    =================================================================================================================
         echo '</div>';
 
         echo '</div>';
+
 
 
         echo '<div class="employee-info">';
