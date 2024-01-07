@@ -23,6 +23,7 @@
         $pageTitle = 'Woodton Ltd Payroll Display';
         require_once('inc/navbar.php');
     ?>
+    <div class="PayrollContainer">
     <table>
         <thead>
             <tr>
@@ -37,13 +38,23 @@
         </thead>
         <tbody>
             <?php
-                // Global variables
                 require('inc/globalVar.php');
-                require('calculateTax.php');
-                require('getUserPhoto.php');
+                require('inc/functions.php');
 
-                $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
+                $employeeDataFile = 'jsonData/employee-data.json';
                 $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
+
+                if (file_exists($employeeDataFile)) 
+                {
+                    $employeeData = json_decode(file_get_contents($employeeDataFile), true);
+                } 
+                else 
+                {
+                    // If the file doesn't exist, show "no data"
+                    echo "<tr><td colspan='7'>No data</td></tr>";
+                    exit(); // Exit the script
+                }
+
 
                 foreach ($employeeData as $employee) 
                 {
@@ -52,13 +63,14 @@
                     $jobPosition = $employee['jobtitle'];
                     $salary = $employee['salary'];
                     $currency = $employee['currency'];
+                    $hasCompanyCar = $employee['companycar'];
                     $salaryFormatted = number_format($salary, 2);
 
                     if($currency == 'GBP')
                     {
                         $employeesCurrency = $pounds;
                         // Calculate after-tax salary
-                        $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables);
+                        $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
 
@@ -68,7 +80,7 @@
                         // Convert dollars to pounds
                         $exchangedSalary = $salary * $usdToGbp;
                         // Tax at british rate
-                        $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables);
+                        $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
                         // Convert back to USD
                         $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
                         $afterTaxSalary = number_format($afterTaxSalary, 2);
@@ -89,5 +101,6 @@
             ?>
         </tbody>
     </table>
+</div>
 </body>
 </html>
