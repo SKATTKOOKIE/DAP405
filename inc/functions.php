@@ -43,7 +43,7 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
     }
     else
     {
-        $untaxableIncome = 0;
+        $untaxableIncome = 5000;
     }
 
     foreach ($taxTables as $taxBracket) 
@@ -52,10 +52,9 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
         $maxSalary = $taxBracket['maxsalary'];
         $taxRate = $taxBracket['rate'];
 
-
         // 20% of £30,000 which is made for if salary is exceeds tax band 2
         $taxBandTwoDeductionIfUserExceedsThreshold = 6000;
-        $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour = 8000;
+        $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour = 7000;
         $taxBandThreeDeductionIfUserExceedsThreshold = 44000;
 
         if ($salary >= $minSalary && $salary <= $maxSalary) 
@@ -87,7 +86,7 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
                 $payAfterTax = $removedUnTaxablePay * ($taxRate / 100);
 
                 // If has company car will not get untaxed £10,000
-                if($untaxableIncome == 0)
+                if($untaxableIncome < 10000)
                 {
                     $taxBandTwoDeductionIfUserExceedsThreshold = $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour;
                 }
