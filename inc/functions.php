@@ -37,13 +37,13 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
 {
     $afterTaxSalary = $salary; // Default value in case there's no matching tax bracket
 
-    if($hasCompanyCar == 'n' or $taxTables['id'] == 4)
+    if($hasCompanyCar == 'y' or $taxTables['id'] == 4)
     {
-        $untaxableIncome = 10000;
+        $untaxableIncome = 5000;
     }
     else
     {
-        $untaxableIncome = 5000;
+        $untaxableIncome = 10000;
     }
 
     foreach ($taxTables as $taxBracket) 
@@ -52,10 +52,10 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
         $maxSalary = $taxBracket['maxsalary'];
         $taxRate = $taxBracket['rate'];
 
-        // 20% of £30,000 which is made for if salary is exceeds tax band 2
-        $taxBandTwoDeductionIfUserExceedsThreshold = 6000;
-        $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour = 7000;
-        $taxBandThreeDeductionIfUserExceedsThreshold = 44000;
+        // Max amount for tax band 2
+        $taxBandTwoMaxAmount = 24000;
+        $taxBandThreeMaxAmount = 66000;
+        // Simplify calculation to 1 so then you can if ID perform last calculation rather than 3 different calculations
 
         if ($salary >= $minSalary && $salary <= $maxSalary) 
         {
@@ -79,35 +79,36 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
 
             elseif ($taxBracket['id'] == 3) 
             {
-                // Remove first £10,000 and band 2s £30,000 as these are calculated
-                // at a different tax percentage
+                // $untaxablePayAmount = $minSalary + $untaxableIncome;
+
+                // Salary - untaxable money and previous band
                 $removedUnTaxablePay = $salary - $minSalary;
-                // Calculate the Deductable from the salary
-                $payAfterTax = $removedUnTaxablePay * ($taxRate / 100);
 
-                // If has company car will not get untaxed £10,000
-                if($untaxableIncome < 10000)
-                {
-                    $taxBandTwoDeductionIfUserExceedsThreshold = $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour;
-                }
+                // Calculate the Deductable from left over salary
+                $taxAmount = $removedUnTaxablePay * ($taxRate / 100);
 
-                $totalsum = $payAfterTax + $taxBandTwoDeductionIfUserExceedsThreshold ;
-                
-                $afterTaxSalary = $salary - $totalsum;
+                // Work out tax free amount
+                $band3LeftOver = $removedUnTaxablePay - $taxAmount;
+
+                // Work out final salary after taxes
+                $afterTaxSalary = $band3LeftOver + $taxBandTwoMaxAmount + $untaxableIncome;
             } 
 
             elseif ($taxBracket['id'] == 4) 
             {
-                // half untaxable and remove, band 2s £30,000 & band 3s £110,000
-                // as these are calculated at a different tax percentage
+                // $untaxablePayAmount = $minSalary + $untaxableIncome;
+
+                // Salary - untaxable money and previous band
                 $removedUnTaxablePay = $salary - $minSalary;
 
-                // Calculate the Deductable from the salary
-                $payAfterTax = $removedUnTaxablePay * ($taxRate / 100);
-                $totalDeductions = $payAfterTax + $taxBandTwoDeductionIfUserExceedsThresholdWithCompanyCarOrInTaxBandFour + $taxBandThreeDeductionIfUserExceedsThreshold;
+                // Calculate the Deductable from left over salary
+                $taxAmount = $removedUnTaxablePay * ($taxRate / 100);
 
-                // Calculate the after-tax salary for Super rate
-                $afterTaxSalary = $salary - $totalDeductions;
+                // Work out tax free amount
+                $band3LeftOver = $removedUnTaxablePay - $taxAmount;
+
+                // Work out final salary after taxes
+                $afterTaxSalary = $band3LeftOver + $taxBandTwoMaxAmount + $taxBandThreeMaxAmount + $untaxableIncome;
             }
 
             break; // Exit the loop once the correct tax bracket is found
