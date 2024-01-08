@@ -157,4 +157,76 @@ function getUserPhotoCell($userId)
     }
 }
 // ________________________________________________________________________________
+
+function calculateTax($salary, $taxTables, $hasCompanyCar) 
+{
+    $afterTaxSalary = $salary; // Default value in case there's no matching tax bracket
+
+    // If statement alters calculations for if user has company car
+    // If true then reduce tax free cash
+    if($hasCompanyCar == 'y' or $taxTables['id'] == 4)
+    {
+        $untaxableIncome = 5000;
+        // Max amount for tax band 2
+        $taxBandTwoMaxAmount = 28000;
+    }
+    
+    else
+    {
+        $untaxableIncome = 10000;
+        // Max amount for tax band 2
+        $taxBandTwoMaxAmount = 24000;
+    }
+
+    // Max amount for tax band 3
+    $taxBandThreeMaxAmount = 66000;
+
+    foreach ($taxTables as $taxBracket) 
+    {
+        $minSalary = $taxBracket['minsalary'];
+        $maxSalary = $taxBracket['maxsalary'];
+        $taxRate = $taxBracket['rate'];
+
+        if ($salary >= $minSalary && $salary <= $maxSalary) 
+        {
+            // Remove minimum salary to have correct tax calculation
+            $taxableAmount = $salary - $minSalary;
+
+            // Calculate the Deductable from left over salary
+            $taxAmount = $taxableAmount * ($taxRate / 100);
+
+            // Remove tax from salary
+            $taxedAmount = $taxableAmount - $taxAmount;
+
+            if ($taxBracket['id'] == 1) 
+            {
+                // If employee is earning less than £10,000 do not make any calculations
+                // and return salary as is
+                $afterTaxSalary = $salary;
+            } 
+            
+            elseif ($taxBracket['id'] == 2) 
+            {
+                // Work out final salary after taxes for tax band 2
+                $afterTaxSalary = $taxedAmount + $untaxableIncome;
+            } 
+
+            elseif ($taxBracket['id'] == 3) 
+            {
+                // Work out final salary after taxes for tax band 3
+                $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount;
+            } 
+
+            elseif ($taxBracket['id'] == 4) 
+            {   // Work out final salary after taxes for tax band 4
+                $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount + $taxBandThreeMaxAmount;
+            }
+
+            break; // Exit the loop once the correct tax bracket is found
+        }
+    }
+
+    return $afterTaxSalary;
+}
+
 ?>
