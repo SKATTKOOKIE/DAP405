@@ -54,6 +54,7 @@ function calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar)
 
         // Max amount for tax band 2
         $taxBandTwoMaxAmount = 24000;
+        // Max amount for tax band 3
         $taxBandThreeMaxAmount = 66000;
         // Simplify calculation to 1 so then you can if ID perform last calculation rather than 3 different calculations
 
