@@ -41,8 +41,6 @@
                 require('inc/globalVar.php');
                 require('inc/functions.php');
 
-
-
                 foreach ($employeeData as $employee) 
                 {
                     $id = $employee['id'];
@@ -53,7 +51,7 @@
                     $hasCompanyCar = $employee['companycar'];
                     $salaryFormatted = number_format($salary, 2);
 
-                    $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
+                    $afterTaxSalary = number_format(calculateTax($salary, $taxTables, $hasCompanyCar, $currency), 2);
 
                     if($currency == 'GBP')
                     {

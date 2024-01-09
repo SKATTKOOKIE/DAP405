@@ -216,13 +216,29 @@ h1
 
 @media screen and (max-width: 1024px) 
 {
-
     .top-of-payslip
     {
         margin-top: 100vh;
 
     }
+}
 
+@media screen and (min-width: 600px) 
+{
+    .top-of-payslip
+    {
+        flex-direction: column;
+    }
+}
+
+.top-of-payslip
+{
+    margin-top: 25vh;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
 }
 
 .employee-container 
@@ -297,7 +313,6 @@ h1
 
 .other-info 
 {
-    /* flex: 2; */
     padding-left: 20px;
     border: 1px solid var(--dark-text-colour);
     padding: 5px;

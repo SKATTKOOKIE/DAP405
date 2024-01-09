@@ -113,11 +113,11 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
     // Change to USD for people who use this currency
     if($currency === 'USD')
     {
-        $afterTaxSalary = $afterTaxSalary * $usdToGbp;
+        $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
     }
 
 
-    $afterTaxSalary = number_format($afterTaxSalary, 2);
+    // $afterTaxSalary = number_format($afterTaxSalary, 2);
     return $afterTaxSalary;
 }
 

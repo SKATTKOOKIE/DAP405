@@ -41,21 +41,6 @@
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
     {
-        // Import Json files
-        $employeeDataFile = 'jsonData/employee-data.json';
-        $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
-
-        if (file_exists($employeeDataFile)) 
-        {
-            $employeeData = json_decode(file_get_contents($employeeDataFile), true);
-        } 
-        else 
-        {
-            // If the file doesn't exist, show "no data"
-            echo "<div><h2>No data</h2></div>";
-            exit(); // Exit the script
-        }
-
         // Find the user with the specified ID
         $selectedEmployee = null;
         foreach ($employeeData as $employee) 
@@ -85,10 +70,8 @@
         echo '</div>';
 
         echo '<div class="other-info">';
-        // ==========================================================================================
-        echo "<h2>Pay Details</h2>";
 
-        
+        echo "<h2>Pay Details</h2>";
 
         if ($selectedEmployee) 
         {
@@ -97,30 +80,18 @@
             $salaryFormatted = number_format($salary, 2);
             $hasCompanyCar = $selectedEmployee['companycar'];
             $cheese = $selectedEmployee['companycar'];
-
+            $afterTaxSalary = number_format(calculateTax($salary, $taxTables, $hasCompanyCar, $currency), 2);
 
             if($currency == 'GBP')
             {
                 $employeesCurrency = $pounds;
-                // Calculate after-tax salary
-                $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar);
-                $afterTaxSalary = number_format($afterTaxSalary, 2);
             }
 
             if($currency == 'USD')
             {
                 $employeesCurrency = $dollars;
-                // Convert dollars to pounds
-                $exchangedSalary = $salary * $usdToGbp;
-                // Tax at british rate
-                $afterTaxSalary = calculateTax($exchangedSalary, $taxTables, $hasCompanyCar);
-                // Convert back to USD
-                $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
-                $afterTaxSalary = number_format($afterTaxSalary, 2);
             }
 
-
-            echo "<p>Reports to: " . $cheese . "</p>";
             echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
             echo "<p>Salary (per year): ". $employeesCurrency . $salaryFormatted . "</p>\n";
             echo "<p> After tax salary (per year): ". $employeesCurrency . $afterTaxSalary . "</p>\n";
@@ -148,10 +119,8 @@
                 echo "<p>Tax Rate: N/A</p>";
             }
         }
-    //    =================================================================================================================
         echo '</div>';
-
-        echo '</div>';
+    echo '</div>';
 
 
 
