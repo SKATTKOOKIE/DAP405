@@ -32,9 +32,13 @@ function calculateAge($dob)
 
 // ================================================================================
 // Calculate employees salary after appropriate tax
-function calculateTax($salary, $taxTables, $hasCompanyCar) 
+function calculateTax($salary, $taxTables, $hasCompanyCar, $currency) 
 {
     $afterTaxSalary = $salary; // Default value in case there's no matching tax bracket
+
+    // Exchange rates
+    $gbpToUsd = 1.22;
+    $usdToGbp = 0.8081;
 
     // If statement alters calculations for if user has company car
     // If true then reduce tax free cash
@@ -50,6 +54,12 @@ function calculateTax($salary, $taxTables, $hasCompanyCar)
         $untaxableIncome = 10000;
         // Max amount for tax band 2
         $taxBandTwoMaxAmount = 24000;
+    }
+
+    // Change to GBP for correct taxation
+    if($currency === 'USD')
+    {
+        $salary = $salary * $usdToGbp;
     }
 
     // Max amount for tax band 3
@@ -100,6 +110,14 @@ function calculateTax($salary, $taxTables, $hasCompanyCar)
         }
     }
 
+    // Change to USD for people who use this currency
+    if($currency === 'USD')
+    {
+        $afterTaxSalary = $afterTaxSalary * $usdToGbp;
+    }
+
+
+    $afterTaxSalary = number_format($afterTaxSalary, 2);
     return $afterTaxSalary;
 }
 
