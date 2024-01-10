@@ -72,7 +72,7 @@
                             <td>$jobPosition</td>
                             <td>$employeesCurrency$salaryFormatted</td>
                             <td>$employeesCurrency$afterTaxSalary</td>
-                            <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
+                            <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View info</a></td>
                         </tr>";
                 }
             ?>

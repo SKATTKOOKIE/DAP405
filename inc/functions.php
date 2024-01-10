@@ -40,25 +40,22 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
     $gbpToUsd = 1.22;
     $usdToGbp = 0.8081;
 
-    // If statement alters calculations for if user has company car
-    // If true then reduce tax free cash
-    if($hasCompanyCar == 'y' or $taxTables['id'] == 4)
+    // If statement alters calculations for if the user has a company car or tax band is 4
+    switch (true) 
     {
-        $untaxableIncome = 5000;
-        // Max amount for tax band 2
-        $taxBandTwoMaxAmount = 28000;
-    }
-    
-    else
-    {
-        $untaxableIncome = 10000;
-        // Max amount for tax band 2
-        $taxBandTwoMaxAmount = 24000;
+        case $hasCompanyCar == 'y' || $taxTables['id'] == 4:
+            $untaxableIncome = 5000;
+            $taxBandTwoMaxAmount = 28000;
+            break;
+
+        default:
+            $untaxableIncome = 10000;
+            $taxBandTwoMaxAmount = 24000;
+            break;
     }
 
     // Change to GBP for correct taxation
-    if($currency === 'USD')
-    {
+    if($currency === 'USD') {
         $salary = $salary * $usdToGbp;
     }
 
@@ -73,37 +70,27 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
 
         if ($salary >= $minSalary && $salary <= $maxSalary) 
         {
-            // Remove minimum salary to have correct tax calculation
             $taxableAmount = $salary - $minSalary;
-
-            // Calculate the Deductable from left over salary
             $taxAmount = $taxableAmount * ($taxRate / 100);
-
-            // Remove tax from salary
             $taxedAmount = $taxableAmount - $taxAmount;
 
-            if ($taxBracket['id'] == 1) 
+            switch ($taxBracket['id']) 
             {
-                // If employee is earning less than £10,000 do not make any calculations
-                // and return salary as is
-                $afterTaxSalary = $salary;
-            } 
-            
-            elseif ($taxBracket['id'] == 2) 
-            {
-                // Work out final salary after taxes for tax band 2
-                $afterTaxSalary = $taxedAmount + $untaxableIncome;
-            } 
+                case 1:
+                    $afterTaxSalary = $salary;
+                    break;
 
-            elseif ($taxBracket['id'] == 3) 
-            {
-                // Work out final salary after taxes for tax band 3
-                $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount;
-            } 
+                case 2:
+                    $afterTaxSalary = $taxedAmount + $untaxableIncome;
+                    break;
 
-            elseif ($taxBracket['id'] == 4) 
-            {   // Work out final salary after taxes for tax band 4
-                $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount + $taxBandThreeMaxAmount;
+                case 3:
+                    $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount;
+                    break;
+
+                case 4:
+                    $afterTaxSalary = $taxedAmount + $untaxableIncome + $taxBandTwoMaxAmount + $taxBandThreeMaxAmount;
+                    break;
             }
 
             break; // Exit the loop once the correct tax bracket is found
@@ -111,13 +98,10 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
     }
 
     // Change to USD for people who use this currency
-    if($currency === 'USD')
-    {
+    if($currency === 'USD') {
         $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
     }
 
-
-    // $afterTaxSalary = number_format($afterTaxSalary, 2);
     return $afterTaxSalary;
 }
 
