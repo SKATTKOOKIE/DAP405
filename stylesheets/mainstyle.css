@@ -205,6 +205,16 @@ h1
 
 }
 
+@media screen and (max-height: 800px) 
+{
+
+    .PayrollContainer
+    {
+        margin-top: 100vh;
+    }
+
+}
+
 
 /* End of employee-data-general styles */
 
@@ -220,6 +230,16 @@ h1
     {
         margin-top: 100vh;
 
+    }
+}
+
+
+@media screen and (max-width: 1224px) 
+{
+    .top-of-payslip
+    {
+        margin-top: 120vh;
+        padding-top: 55vh;
     }
 }
 
@@ -239,6 +259,7 @@ h1
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
+    padding-top: 55vh;
 }
 
 .employee-container 
