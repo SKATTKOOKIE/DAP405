@@ -79,8 +79,12 @@
             $currency = $selectedEmployee['currency'];
             $salaryFormatted = number_format($salary, 2);
             $hasCompanyCar = $selectedEmployee['companycar'];
-            $cheese = $selectedEmployee['companycar'];
             $afterTaxSalary = number_format(calculateTax($salary, $taxTables, $hasCompanyCar, $currency), 2);
+
+            $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
+            $afterTaxSalaryFormatted = number_format($afterTaxSalary, 2);
+            $taxAmount = $salary - $afterTaxSalary;
+            $taxAmount = number_format($taxAmount,2);
 
             if($currency == 'GBP')
             {
@@ -94,7 +98,8 @@
 
             echo "<p>National Insurance Number: " . $selectedEmployee['nationalinsurance'] . "</p>";
             echo "<p>Salary (per year): ". $employeesCurrency . $salaryFormatted . "</p>\n";
-            echo "<p> After tax salary (per year): ". $employeesCurrency . $afterTaxSalary . "</p>\n";
+            echo "<p> After tax salary (per year): ". $employeesCurrency . $afterTaxSalaryFormatted . "</p>\n";
+            echo "<p> Tax paid: ". $employeesCurrency . $taxAmount . "</p>\n";
 
             // Fetch the applicable tax rate
             $taxRate = null;

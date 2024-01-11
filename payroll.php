@@ -32,7 +32,8 @@
                 <th>Name</th>
                 <th>Job Position</th>
                 <th>Salary (per year)</th>
-                <th>After Tax Salary</th>
+                <th>After Tax Salary (per year)</th>
+                <th>Tax paid</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -51,7 +52,10 @@
                     $hasCompanyCar = $employee['companycar'];
                     $salaryFormatted = number_format($salary, 2);
 
-                    $afterTaxSalary = number_format(calculateTax($salary, $taxTables, $hasCompanyCar, $currency), 2);
+                    $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
+                    $afterTaxSalaryFormatted = number_format($afterTaxSalary, 2);
+                    $taxAmount = $salary - $afterTaxSalary;
+                    $taxAmount = number_format($taxAmount,2);
 
                     if($currency == 'GBP')
                     {
@@ -71,7 +75,8 @@
                             <td>$fullName</td>
                             <td>$jobPosition</td>
                             <td>$employeesCurrency$salaryFormatted</td>
-                            <td>$employeesCurrency$afterTaxSalary</td>
+                            <td>$employeesCurrency$afterTaxSalaryFormatted</td>
+                            <td>$employeesCurrency$taxAmount</td>
                             <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View info</a></td>
                         </tr>";
                 }

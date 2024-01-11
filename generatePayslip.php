@@ -40,7 +40,7 @@
             $hasCompanyCar = $selectedEmployee['companycar'];
             $id = $selectedEmployee['id'];
             $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
-
+            $afterTaxSalaryFormatted = number_format($afterTaxSalary, 2);
             // Calculate tax amount
             $taxAmount = $salary - $afterTaxSalary;
             $taxAmount = number_format($taxAmount,2);
@@ -103,8 +103,13 @@
             $pdf->Ln();
 
             // Display Take-Home Pay
-            $pdf->Cell(100, 10, 'Take-Home Pay:', 1);
-            $pdf->Cell(80, 10, $employeesCurrency . number_format($afterTaxSalary, 2), 1);
+            $pdf->Cell(100, 10, 'Take-Home Pay(per year):', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . $afterTaxSalaryFormatted, 1);
+            $pdf->Ln();
+
+            // Display Monthly Take-Home Pay
+            $pdf->Cell(100, 10, 'Take-Home Pay(per month):', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . number_format(($afterTaxSalary/ 12)), 1);
             $pdf->Ln();
 
             // Output the PDF (you can save it or display it)

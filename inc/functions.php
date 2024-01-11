@@ -40,7 +40,7 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
     $gbpToUsd = 1.22;
     $usdToGbp = 0.8081;
 
-    // If statement alters calculations for if the user has a company car or tax band is 4
+    // Switch statement alters calculations for if the user has a company car or tax band is 4
     switch (true) 
     {
         case $hasCompanyCar == 'y' || $taxTables['id'] == 4:
@@ -55,7 +55,8 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
     }
 
     // Change to GBP for correct taxation
-    if($currency === 'USD') {
+    if($currency === 'USD') 
+    {
         $salary = $salary * $usdToGbp;
     }
 
@@ -93,12 +94,13 @@ function calculateTax($salary, $taxTables, $hasCompanyCar, $currency)
                     break;
             }
 
-            break; // Exit the loop once the correct tax bracket is found
+            break; // Exit the loop once the correct tax bracket is found and calculation has been performed
         }
     }
 
     // Change to USD for people who use this currency
-    if($currency === 'USD') {
+    if($currency === 'USD') 
+    {
         $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
     }
 
