@@ -12,10 +12,6 @@
         header("Location: login.php");
         exit();
     }
-
-    // Read the employee data & tax brackets from corresponding external JSON
-    $employeeData = json_decode(file_get_contents('jsonData/employee-data.json'), true);
-    $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
     
     // Check if the "id" parameter is set in the URL
     if (isset($_GET['id'])) 
@@ -43,27 +39,20 @@
             $currency = $selectedEmployee['currency'];
             $hasCompanyCar = $selectedEmployee['companycar'];
             $id = $selectedEmployee['id'];
+            $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
+            $afterTaxSalaryFormatted = number_format($afterTaxSalary, 2);
+            // Calculate tax amount
+            $taxAmount = $salary - $afterTaxSalary;
+            $taxAmount = number_format($taxAmount,2);
 
             if($currency == 'GBP')
             {
-                $employeesCurrency = iconv('UTF-8', 'ISO-8859-1', $pounds);
-                // Calculate after-tax salary
-                $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
-                $numericSalary = (int)$afterTaxSalary;
-                $afterTaxSalary = number_format($afterTaxSalary, 2);
+                $employeesCurrency = $poundCharFormatted;
             }
 
             if($currency == 'USD')
             {
                 $employeesCurrency = $dollars;
-                // Convert dollars to pounds
-                $exchangedSalary = $salary * $usdToGbp;
-                // Tax at british rate
-                $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
-                // Convert back to USD
-                $numericSalary = (int)$afterTaxSalary;
-                $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
-                $afterTaxSalary = number_format($afterTaxSalary, 2);
             }
 
             // Set the title and center it
@@ -103,9 +92,6 @@
                 }
             }
 
-            // Calculate tax amount
-            $taxAmount = $salary - $numericSalary;
-
             // Display Tax Rate
             $pdf->Cell(100, 10, 'Tax Rate:', 1);
             $pdf->Cell(80, 10, $taxRate . '%', 1);
@@ -113,12 +99,17 @@
 
             // Display Tax Amount
             $pdf->Cell(100, 10, 'Tax Amount:', 1);
-            $pdf->Cell(80, 10, $employeesCurrency . number_format($taxAmount, 2), 1);
+            $pdf->Cell(80, 10, $employeesCurrency . $taxAmount, 1);
             $pdf->Ln();
 
             // Display Take-Home Pay
-            $pdf->Cell(100, 10, 'Take-Home Pay:', 1);
-            $pdf->Cell(80, 10, $employeesCurrency . $afterTaxSalary, 1);
+            $pdf->Cell(100, 10, 'Take-Home Pay(per year):', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . $afterTaxSalaryFormatted, 1);
+            $pdf->Ln();
+
+            // Display Monthly Take-Home Pay
+            $pdf->Cell(100, 10, 'Take-Home Pay(per month):', 1);
+            $pdf->Cell(80, 10, $employeesCurrency . number_format(($afterTaxSalary/ 12)), 1);
             $pdf->Ln();
 
             // Output the PDF (you can save it or display it)

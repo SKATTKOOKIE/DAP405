@@ -32,7 +32,8 @@
                 <th>Name</th>
                 <th>Job Position</th>
                 <th>Salary (per year)</th>
-                <th>After Tax Salary</th>
+                <th>After Tax Salary (per year)</th>
+                <th>Tax paid</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -40,21 +41,6 @@
             <?php
                 require('inc/globalVar.php');
                 require('inc/functions.php');
-
-                $employeeDataFile = 'jsonData/employee-data.json';
-                $taxTables = json_decode(file_get_contents('jsonData/tax-tables.json'), true);
-
-                if (file_exists($employeeDataFile)) 
-                {
-                    $employeeData = json_decode(file_get_contents($employeeDataFile), true);
-                } 
-                else 
-                {
-                    // If the file doesn't exist, show "no data"
-                    echo "<tr><td colspan='7'>No data</td></tr>";
-                    exit(); // Exit the script
-                }
-
 
                 foreach ($employeeData as $employee) 
                 {
@@ -66,24 +52,19 @@
                     $hasCompanyCar = $employee['companycar'];
                     $salaryFormatted = number_format($salary, 2);
 
+                    $afterTaxSalary = calculateTax($salary, $taxTables, $hasCompanyCar, $currency);
+                    $afterTaxSalaryFormatted = number_format($afterTaxSalary, 2);
+                    $taxAmount = $salary - $afterTaxSalary;
+                    $taxAmount = number_format($taxAmount,2);
+
                     if($currency == 'GBP')
                     {
                         $employeesCurrency = $pounds;
-                        // Calculate after-tax salary
-                        $afterTaxSalary = calculateAfterTaxSalary($salary, $taxTables, $hasCompanyCar);
-                        $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
 
                     if($currency == 'USD')
                     {
                         $employeesCurrency = $dollars;
-                        // Convert dollars to pounds
-                        $exchangedSalary = $salary * $usdToGbp;
-                        // Tax at british rate
-                        $afterTaxSalary = calculateAfterTaxSalary($exchangedSalary, $taxTables, $hasCompanyCar);
-                        // Convert back to USD
-                        $afterTaxSalary = $afterTaxSalary * $gbpToUsd;
-                        $afterTaxSalary = number_format($afterTaxSalary, 2);
                     }
 
                     $userPhotoCell = getUserPhotoCell($id);
@@ -94,8 +75,9 @@
                             <td>$fullName</td>
                             <td>$jobPosition</td>
                             <td>$employeesCurrency$salaryFormatted</td>
-                            <td>$employeesCurrency$afterTaxSalary</td>
-                            <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View Payslip</a></td>
+                            <td>$employeesCurrency$afterTaxSalaryFormatted</td>
+                            <td>$employeesCurrency$taxAmount</td>
+                            <td><a class='viewPayslipLink' href='payslip.php?id=$id'>View info</a></td>
                         </tr>";
                 }
             ?>

@@ -181,7 +181,7 @@ h1
     width: 90%;
     display: flex;
     justify-content: center;
-    margin-top: 20vh;
+    margin-top: 95vh;
 }
 
 @media screen and (max-width: 1000px) 
@@ -191,6 +191,28 @@ h1
        padding: 5000px;
        margin-top: 150px;
     }
+
+
+}
+
+@media screen and (min-width: 1024px) 
+{
+
+    .PayrollContainer
+    {
+        margin-top: 20vh;
+    }
+
+}
+
+@media screen and (max-height: 800px) 
+{
+
+    .PayrollContainer
+    {
+        margin-top: 100vh;
+    }
+
 }
 
 
@@ -202,9 +224,48 @@ h1
 
 /* Start of payslip styles */
 
+@media screen and (max-width: 1024px) 
+{
+    .top-of-payslip
+    {
+        margin-top: 100vh;
+
+    }
+}
+
+
+@media screen and (max-width: 1224px) 
+{
+    .top-of-payslip
+    {
+        margin-top: 120vh;
+        padding-top: 55vh;
+    }
+}
+
+@media screen and (min-width: 600px) 
+{
+    .top-of-payslip
+    {
+        flex-direction: column;
+    }
+}
+
+.top-of-payslip
+{
+    margin-top: 25vh;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    padding-top: 55vh;
+}
+
 .employee-container 
 {
     border: 1px solid var(--light-text-colour);
+    margin-top: 40vh;
     padding: 20px;
     margin: 10px;
     width: 100%;
@@ -221,10 +282,13 @@ h1
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     position: relative;
+    overflow-y: scroll;
 }
 
 .top-of-payslip
 {
+    margin-top: 25vh;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -239,7 +303,7 @@ h1
 .payslipTitle
 {
     position: relative;
-    margin-top: 15vw;
+    margin-top: 7vw;
 }
 
 .name-role 
@@ -270,7 +334,6 @@ h1
 
 .other-info 
 {
-    /* flex: 2; */
     padding-left: 20px;
     border: 1px solid var(--dark-text-colour);
     padding: 5px;
